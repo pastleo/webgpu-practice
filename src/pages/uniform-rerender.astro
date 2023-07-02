@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Uniforms & Re-rendering">
   <canvas id="main-canvas" class="w-screen h-screen"></canvas>
   <p id="loading-info" class="text-black absolute top-1/2 left-1/2" style="transform: translate(-50%, -50%);">Loading...</p>
+  <p class="text-black absolute top-4 left-1/2 text-lg" style="transform: translate(-50%, -50%);">Use arrow keys to move triangle</p>
 </Layout>
 <script>
   import main from '../lib/uniform-rerender/main.ts'
