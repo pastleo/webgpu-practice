@@ -32,12 +32,7 @@ const verticesData = new Float32Array([
   0, 0, 1, 1,
 ]);
 
-export default async function main(canvasId: string, textId: string) {
-  const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
+export default async function main(canvas: HTMLCanvasElement) {
   const context = canvas.getContext('webgpu');
   const adapter = await navigator.gpu.requestAdapter();
   if (!adapter) return
@@ -120,6 +115,4 @@ export default async function main(canvasId: string, textId: string) {
   passEncoder.end();
 
   device.queue.submit([commandEncoder.finish()]);
-
-  document.getElementById(textId)?.remove()
 }

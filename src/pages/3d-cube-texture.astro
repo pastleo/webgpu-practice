@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="3D Cube & Texture">
+  <canvas id="main-canvas" class="w-screen h-screen"></canvas>
+  <p id="loading-info" class="text-black absolute top-1/2 left-1/2" style="transform: translate(-50%, -50%);">WIP...</p>
+</Layout>
+<script>
+  // import main from '../lib/3d-cube-texture/main.ts'
+
+  const mainCanvas = document.getElementById('main-canvas') as HTMLCanvasElement
+  mainCanvas.width = window.innerWidth;
+  mainCanvas.height = window.innerHeight;
+
+  // const loadingInfo = document.getElementById('loading-info') as HTMLParagraphElement
+
+  // main(mainCanvas).then(() => {
+  //   loadingInfo.remove()
+  // }).catch((err: Error) => {
+  //   console.error(err)
+  //   loadingInfo.textContent = err.message
+  // })
+</script>

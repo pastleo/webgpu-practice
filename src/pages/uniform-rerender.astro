@@ -2,12 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Hello WebGPU">
+<Layout title="Uniforms & Re-rendering">
   <canvas id="main-canvas" class="w-screen h-screen"></canvas>
   <p id="loading-info" class="text-black absolute top-1/2 left-1/2" style="transform: translate(-50%, -50%);">Loading...</p>
 </Layout>
 <script>
-  import main from '../lib/hello-webgpu/main.ts'
+  import main from '../lib/uniform-rerender/main.ts'
 
   const mainCanvas = document.getElementById('main-canvas') as HTMLCanvasElement
   mainCanvas.width = window.innerWidth;
