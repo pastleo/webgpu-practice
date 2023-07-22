@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { INDEX_SIZE, createWebgpuVertexBuffer, degToRad } from '../utils'
+import pastleoJpg from '../../images/pastleo.jpg'
 
 const shaders = `
 struct VertexOut {
@@ -20,10 +21,13 @@ fn vertex_main(@location(0) position: vec3f,
   return output;
 }
 
+@group(0) @binding(3) var mySampler: sampler;
+@group(0) @binding(4) var myTexture: texture_2d<f32>;
+
 @fragment
 fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
 {
-  return vec4f(fragData.uv, 0.0, 1.0);
+  return textureSample(myTexture, mySampler, fragData.uv);
 }
 `;
 
@@ -149,6 +153,31 @@ export default async function main(canvas: HTMLCanvasElement) {
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   });
 
+  const sampler = device.createSampler({
+    magFilter: 'linear',
+    minFilter: 'linear',
+  });
+
+  const cubeTexture: GPUTexture = await fetch(pastleoJpg)
+    .then(res => res.blob())
+    .then(blob => createImageBitmap(blob))
+    .then(imageBitmap => {
+      const texture = device.createTexture({
+        size: [imageBitmap.width, imageBitmap.height, 1],
+        format: 'rgba8unorm',
+        usage:
+          GPUTextureUsage.TEXTURE_BINDING |
+          GPUTextureUsage.COPY_DST |
+          GPUTextureUsage.RENDER_ATTACHMENT,
+      });
+      device.queue.copyExternalImageToTexture(
+        { source: imageBitmap },
+        { texture },
+        [imageBitmap.width, imageBitmap.height]
+      );
+      return texture;
+    })
+
   const uniformBindGroups = {} as App['uniformBindGroups'];
   uniformBindGroups.main = device.createBindGroup({
     layout: pipelines.main.getBindGroupLayout(0),
@@ -170,6 +199,14 @@ export default async function main(canvas: HTMLCanvasElement) {
         resource: {
           buffer: uniformBuffers.projectionTransform,
         },
+      },
+      {
+        binding: 3,
+        resource: sampler,
+      },
+      {
+        binding: 4,
+        resource: cubeTexture.createView(),
       },
     ],
   });
@@ -205,7 +242,7 @@ export default async function main(canvas: HTMLCanvasElement) {
   const app: App = {
     state: {
       offset: [0, 0],
-      rotate: [45, -45],
+      rotate: [45, -225],
     },
 
     device, canvasCtx,
