@@ -5,9 +5,7 @@ import { pathTo } from '../utils.ts';
 
 <Layout title="WebGPU Practices" bodyClass="bg-black">
   <div class="container my-24 px-6 mx-auto">
-
     <section class="mb-32 text-gray-800">
-
       <div class="flex mb-12">
         <h2 class="flex-1 text-white text-3xl font-bold">WebGPU Practices</h2>
         <h3 class="text-white text-xl font-bold">
@@ -15,7 +13,7 @@ import { pathTo } from '../utils.ts';
         </h3>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-6">
+      <div class="grid lg:grid-cols-3 gap-6 items-start">
         <div class="relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg"
           style="background-position: 50%;" data-mdb-ripple="true" data-mdb-ripple-color="light">
           <img src="https://i.imgur.com/o956gvr.png" class="w-full" />
@@ -66,9 +64,24 @@ import { pathTo } from '../utils.ts';
             </div>
           </a>
         </div>
+
+        <div class="relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg"
+          style="background-position: 50%;" data-mdb-ripple="true" data-mdb-ripple-color="light">
+          <img src="https://i.imgur.com/3CMV0tt.png" class="w-full" />
+          <a href={pathTo('/animated-multiple-3d-objects')}>
+            <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
+              style="background-color: rgba(0, 0, 0, 0.4)">
+              <div class="flex justify-start items-end h-full">
+                <div class="text-white m-6">
+                  <h5 class="font-bold text-lg mb-3">Animated Multiple 3D objects</h5>
+                  <p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
-
     </section>
-
   </div>
 </Layout>

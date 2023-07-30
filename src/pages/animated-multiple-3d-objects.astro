@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Animated Multiple 3D objects">
+  <canvas id="main-canvas" class="w-screen h-screen"></canvas>
+  <p id="loading-info" class="text-black absolute top-1/2 left-1/2" style="transform: translate(-50%, -50%);">Loading...</p>
+  <p class="text-black absolute top-4 left-1/2 text-lg" style="transform: translate(-50%, -50%);">Use arrow keys to rotate cube, WASD to move cube</p>
+</Layout>
+<script>
+  import main from '../lib/animated-multiple-3d-objects/main.ts'
+
+  const mainCanvas = document.getElementById('main-canvas') as HTMLCanvasElement
+  mainCanvas.width = window.innerWidth;
+  mainCanvas.height = window.innerHeight;
+
+  const loadingInfo = document.getElementById('loading-info') as HTMLParagraphElement
+
+  main(mainCanvas).then(() => {
+    loadingInfo.remove()
+  }).catch((err: Error) => {
+    console.error(err)
+    loadingInfo.textContent = err.message
+  })
+</script>
